@@ -1,12 +1,12 @@
 const { Router } = require('express');
-const UserService = require('../services/user.service')
+const UserService = require('../services/user.service');
 
 const router = Router();
-const service = new UserService()
+const service = new UserService();
 
 router.get('/', (req, res) => {
   const { limit, offset } = req.query;
-  const users = service.find()
+  const users = service.find();
   if (limit && offset) {
     res.json({
       limit,

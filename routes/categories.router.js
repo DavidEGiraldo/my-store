@@ -1,11 +1,11 @@
 const { Router } = require('express');
-const CategoryService = require('../services/category.service')
+const CategoryService = require('../services/category.service');
 
 const router = Router();
-const service = new CategoryService()
+const service = new CategoryService();
 
 router.get('/', (req, res) => {
-  const categories = service.find()
+  const categories = service.find();
   res.status(200).json(categories);
 });
 
