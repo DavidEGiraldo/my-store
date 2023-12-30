@@ -17,7 +17,7 @@ app.use(express.json());
 const whitelist = ['http://127.0.0.1:5500', 'https://myapp.co'];
 const options = {
   origin: (origin, callback) => {
-    if (whitelist.includes(origin)) {
+    if (whitelist.includes(origin) || !origin) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed'));
@@ -26,7 +26,7 @@ const options = {
 };
 app.use(cors(options));
 
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
   res.send('Hello, my server on Express.js');
 });
 
