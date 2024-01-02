@@ -4,16 +4,16 @@ const UserService = require('../services/user.service');
 const router = Router();
 const service = new UserService();
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   const { limit, offset } = req.query;
-  const users = service.find();
+  const users = await service.find();
   if (limit && offset) {
     res.json({
       limit,
       offset,
     });
   } else {
-    res.send(users);
+    res.json(users);
   }
 });
 
