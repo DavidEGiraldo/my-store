@@ -1,14 +1,12 @@
 const { faker } = require('@faker-js/faker');
 const boom = require('@hapi/boom');
 
-const pool = require('../libs/postgres.pool');
+const { models } = require('../libs/sequelize');
 
 class UserService {
   constructor() {
     this.users = [];
     this.generate();
-    this.pool = pool;
-    this.pool.on('error', (err) => console.error(err));
   }
 
   generate() {
@@ -21,10 +19,34 @@ class UserService {
     this.users = faker.helpers.multiple(createUser, { count: 10 });
   }
 
+  async create(data) {
+    const newUser = await models.User.create(data);
+    return newUser;
+  }
+
   async find() {
-    const query = 'SELECT * FROM tasks';
-    const result = await this.pool.query(query);
-    return result.rows;
+    const users = await models.User.findAll();
+    return users;
+  }
+
+  async findOne(id) {
+    const user = await models.User.findByPk(id);
+    if (!user) {
+      throw boom.notFound('User not found');
+    }
+    return user;
+  }
+
+  async update(id, changes) {
+    const user = await this.findOne(id);
+    const updatedUser = await user.update(changes);
+    return updatedUser;
+  }
+
+  async delete(id) {
+    const user = await this.findOne(id);
+    await user.destroy();
+    return { id };
   }
 }
 
