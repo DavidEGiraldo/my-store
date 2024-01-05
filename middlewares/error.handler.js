@@ -1,4 +1,4 @@
-const { ValidationError } = require('sequelize');
+const { ValidationError, ForeignKeyConstraintError } = require('sequelize');
 const boom = require('@hapi/boom');
 
 function logErrors(err, req, res, next) {
@@ -25,6 +25,8 @@ function boomErrorHandler(err, req, res, next) {
 function SQLErrorHandler(err, req, res, next) {
   if (err instanceof ValidationError) {
     throw boom.conflict(err.errors[0].message);
+  } else if (err instanceof ForeignKeyConstraintError) {
+    throw boom.badRequest(err.parent.detail);
   }
   next(err);
 }
