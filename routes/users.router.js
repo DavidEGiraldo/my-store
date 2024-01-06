@@ -49,7 +49,7 @@ router.post(
     try {
       const data = req.body;
       const newUser = await service.create(data);
-      res.json(newUser);
+      res.status(201).json(newUser);
     } catch (error) {
       next(error);
     }

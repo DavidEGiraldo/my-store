@@ -13,16 +13,8 @@ const service = new CustomerService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const { limit, offset } = req.query;
     const customers = await service.find();
-    if (limit && offset) {
-      res.json({
-        limit,
-        offset,
-      });
-    } else {
-      res.json(customers);
-    }
+    res.json(customers);
   } catch (error) {
     next(error);
   }
