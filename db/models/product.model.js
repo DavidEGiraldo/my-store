@@ -52,6 +52,10 @@ class Product extends Model {
       as: 'category',
       foreignKey: 'categoryId',
     });
+    this.hasMany(models.Order, {
+      through: models.OrderProduct,
+      foreignKey: 'product-id',
+    });
   }
 
   static config(sequelize) {
