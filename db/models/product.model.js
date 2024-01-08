@@ -52,9 +52,10 @@ class Product extends Model {
       as: 'category',
       foreignKey: 'categoryId',
     });
-    this.hasMany(models.Order, {
+    this.belongsToMany(models.Order, {
       through: models.OrderProduct,
-      foreignKey: 'product-id',
+      foreignKey: 'productId',
+      otherKey: 'orderId',
     });
   }
 
