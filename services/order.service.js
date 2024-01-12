@@ -18,6 +18,7 @@ class OrderService {
   async find() {
     const orders = await models.Order.findAll({
       include: 'customer',
+      attributes: { exclude: ['total'] },
     });
     return orders;
   }

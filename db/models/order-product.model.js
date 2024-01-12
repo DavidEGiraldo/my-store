@@ -20,23 +20,19 @@ const OrderProductSchema = {
       model: ORDER_TABLE,
       key: 'id',
     },
-    onUpdate: 'CASCADE',
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
   },
   amount: {
     allowNull: false,
     type: DataTypes.INTEGER,
   },
   productId: {
-    allowNull: false,
     type: DataTypes.INTEGER,
     field: 'product_id',
     references: {
       model: PRODUCT_TABLE,
       key: 'id',
     },
-    onUpdate: 'CASCADE',
-    onDelete: 'SET NULL',
   },
   createdAt: {
     allowNull: false,

@@ -41,8 +41,6 @@ const ProductSchema = {
       model: CATEGORY_TABLE,
       key: 'id',
     },
-    onUpdate: 'CASCADE',
-    onDelete: 'SET NULL',
   },
 };
 

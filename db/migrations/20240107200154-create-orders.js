@@ -1,7 +1,7 @@
 'use strict';
 
 const { ORDER_TABLE, OrderSchema } = require('../models/order.model');
-const { _total, ...Schema } = OrderSchema;
+const { total, ...Schema } = OrderSchema;
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
