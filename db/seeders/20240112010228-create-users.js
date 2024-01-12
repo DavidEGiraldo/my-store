@@ -8,10 +8,13 @@ module.exports = {
     const createUser = () => ({
       email: faker.internet.email(),
       password: faker.internet.password(),
-      role: faker.helpers.arrayElement(['customer', 'admin']),
+      role: faker.helpers.weightedArrayElement([
+        { weight: 8, value: 'customer' },
+        { weight: 2, value: 'admin' },
+      ]),
       created_at: new Date(),
     });
-    const users = faker.helpers.multiple(createUser, { count: 10 });
+    const users = Array.from({ length: 10 }, () => createUser());
 
     await queryInterface.bulkInsert(USER_TABLE, users, {});
   },

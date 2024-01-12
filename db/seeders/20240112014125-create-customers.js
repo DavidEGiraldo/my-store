@@ -12,7 +12,7 @@ module.exports = {
       created_at: new Date(),
       user_id: null,
     });
-    const customers = faker.helpers.multiple(createCustomer, { count: 10 });
+    const customers = Array.from({ length: 10 }, () => createCustomer());
     const usersId =
       await queryInterface.sequelize.query(`SELECT id FROM users`);
     customers.forEach((customer, index) => {
