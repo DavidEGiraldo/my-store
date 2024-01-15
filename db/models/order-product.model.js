@@ -51,6 +51,13 @@ class OrderProduct extends Model {
       tableName: ORDER_PRODUCT_TABLE,
       modelName: 'OrderProduct',
       timestamps: false,
+      indexes: [
+        {
+          unique: true,
+          fields: ['order_id', 'product_id'],
+          name: 'orderProductIndex',
+        },
+      ],
     };
   }
 }

@@ -1,4 +1,5 @@
 const boom = require('@hapi/boom');
+const { Op } = require('sequelize');
 
 const { models } = require('../libs/sequelize');
 
@@ -33,16 +34,40 @@ class OrderService {
     return order;
   }
 
+  async findOneItem(orderId, productId) {
+    const orderProduct = await models.OrderProduct.findOne({
+      where: {
+        [Op.and]: [{ orderId }, { productId }],
+      },
+    });
+    if (!orderProduct) {
+      throw boom.notFound('Product not found in order');
+    }
+    return orderProduct;
+  }
+
   async update(id, changes) {
     const order = await this.findOne(id);
     const updatedOrder = await order.update(changes);
     return updatedOrder;
   }
 
+  async updateItem(orderId, productId, changes) {
+    const orderProduct = await this.findOneItem(orderId, productId);
+    const updatedOrderProduct = await orderProduct.update(changes);
+    return updatedOrderProduct;
+  }
+
   async delete(id) {
     const order = await this.findOne(id);
     await order.destroy();
     return { id };
+  }
+
+  async deleteItem(orderId, productId) {
+    const orderProduct = await this.findOneItem(orderId, productId);
+    await orderProduct.destroy();
+    return { orderId, productId };
   }
 }
 

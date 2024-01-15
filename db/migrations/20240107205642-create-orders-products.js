@@ -9,6 +9,14 @@ const {
 module.exports = {
   async up(queryInterface) {
     await queryInterface.createTable(ORDER_PRODUCT_TABLE, OrderProductSchema);
+    await queryInterface.addIndex(
+      ORDER_PRODUCT_TABLE,
+      ['order_id', 'product_id'],
+      {
+        unique: true,
+        name: 'orderProductIndex',
+      },
+    );
   },
 
   async down(queryInterface) {

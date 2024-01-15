@@ -23,7 +23,9 @@ module.exports = {
       createOrderProduct(ordersArray, productsArray),
     );
 
-    await queryInterface.bulkInsert(ORDER_PRODUCT_TABLE, ordersProducts, {});
+    await queryInterface.bulkInsert(ORDER_PRODUCT_TABLE, ordersProducts, {
+      ignoreDuplicates: true,
+    });
   },
 
   async down(queryInterface) {
