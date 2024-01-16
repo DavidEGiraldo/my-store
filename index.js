@@ -10,6 +10,8 @@ const {
   SQLErrorHandler,
 } = require('./middlewares/error.handler');
 
+const { checkApiKey } = require('./middlewares/auth.handler');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -27,7 +29,7 @@ const options = {
 };
 app.use(cors(options));
 
-app.get('/api/', (req, res) => {
+app.get('/api/v1', checkApiKey, (req, res) => {
   res.send('Hello, my server on Express.js');
 });
 
