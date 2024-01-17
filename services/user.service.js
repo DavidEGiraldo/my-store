@@ -17,6 +17,13 @@ class UserService {
     return users;
   }
 
+  async findByEmail(email) {
+    const user = await models.User.scope('withPassword').findOne({
+      where: { email },
+    });
+    return user;
+  }
+
   async findOne(id) {
     const user = await models.User.findByPk(id, { include: 'customer' });
     if (!user) {

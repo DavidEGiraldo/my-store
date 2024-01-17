@@ -2,15 +2,14 @@ const express = require('express');
 const cors = require('cors');
 
 const routerApi = require('./routes');
-
 const {
   errorHandler,
   logErrors,
   boomErrorHandler,
   SQLErrorHandler,
 } = require('./middlewares/error.handler');
-
 const { checkApiKey } = require('./middlewares/auth.handler');
+const usePassport = require('./utils/auth');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -33,6 +32,7 @@ app.get('/api/v1', checkApiKey, (req, res) => {
   res.send('Hello, my server on Express.js');
 });
 
+usePassport();
 routerApi(app);
 
 app.use(logErrors);
