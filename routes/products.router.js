@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const passport = require('passport')
 
 const {
   createProductSchema,
@@ -45,6 +46,7 @@ router.get(
 
 router.post(
   '/',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(createProductSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -59,6 +61,7 @@ router.post(
 
 router.patch(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(getProductSchema, 'params'),
   validatorHandler(updateProductSchema, 'body'),
   async (req, res, next) => {
@@ -73,14 +76,17 @@ router.patch(
   },
 );
 
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const productId = await service.delete(id);
-    res.status(200).json(productId);
-  } catch (error) {
-    next(error);
-  }
+router.delete('/:id',
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(getProductSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const productId = await service.delete(id);
+      res.status(200).json(productId);
+    } catch (error) {
+      next(error);
+    }
 });
 
 module.exports = router;

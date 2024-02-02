@@ -21,7 +21,29 @@ class OrderService {
       include: 'customer',
       attributes: { exclude: ['total'] },
     });
-    return orders;
+    orders.forEach((order) => {
+      delete order.dataValues.items
+    })
+    return orders
+  }
+
+  async findByUser(userId) {
+    const orders = await models.Order.findAll({
+      where: {
+        '$customer.user.id$': userId
+      },
+      include: [
+        {
+          association: 'customer',
+          include: ['user']
+        },
+        'items'
+      ],
+    })
+    orders.forEach((order) => {
+      delete order.dataValues.items
+    })
+    return orders
   }
 
   async findOne(id) {
