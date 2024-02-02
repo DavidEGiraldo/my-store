@@ -1,5 +1,6 @@
 'use strict';
 const { faker } = require('@faker-js/faker');
+const bcrypt = require('bcrypt')
 const { USER_TABLE } = require('../models/user.model');
 
 /** @type {import('sequelize-cli').Migration} */
@@ -7,7 +8,7 @@ module.exports = {
   async up(queryInterface) {
     const createUser = () => ({
       email: faker.internet.email(),
-      password: faker.internet.password(),
+      password: bcrypt.hashSync('password', 10),
       role: faker.helpers.weightedArrayElement([
         { weight: 8, value: 'customer' },
         { weight: 2, value: 'admin' },
