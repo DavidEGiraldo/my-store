@@ -1,6 +1,5 @@
 const Joi = require('joi');
 
-
 const id = Joi.number().integer();
 const email = Joi.string().email();
 const password = Joi.string().min(8);
@@ -26,7 +25,6 @@ const getUserSchema = Joi.object({
   id: id.required(),
 });
 
-
 const updateProfileSchema = Joi.object({
   email: email,
   password: password,
@@ -34,8 +32,13 @@ const updateProfileSchema = Joi.object({
   customer: Joi.object({
     name: name,
     lastName: lastName,
-    phone: phone
+    phone: phone,
   }),
 });
 
-module.exports = { createUserSchema, updateUserSchema, getUserSchema, updateProfileSchema };
+module.exports = {
+  createUserSchema,
+  updateUserSchema,
+  getUserSchema,
+  updateProfileSchema,
+};

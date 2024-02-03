@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const passport = require('passport')
+const passport = require('passport');
 
 const {
   createProductSchema,
@@ -8,7 +8,7 @@ const {
   queryProductSchema,
 } = require('../schemas/product.schema');
 const validatorHandler = require('../middlewares/validator.handler');
-const { checkRoles } = require('../middlewares/auth.handler')
+const { checkRoles } = require('../middlewares/auth.handler');
 const ProductService = require('../services/product.service');
 
 const router = Router();
@@ -92,6 +92,7 @@ router.delete(
     } catch (error) {
       next(error);
     }
-});
+  },
+);
 
 module.exports = router;

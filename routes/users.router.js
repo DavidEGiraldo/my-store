@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const passport = require('passport')
+const passport = require('passport');
 
 const {
   createUserSchema,
@@ -7,7 +7,7 @@ const {
   getUserSchema,
 } = require('../schemas/user.schema');
 const validatorHandler = require('../middlewares/validator.handler');
-const { checkRoles } = require('../middlewares/auth.handler')
+const { checkRoles } = require('../middlewares/auth.handler');
 const UserService = require('../services/user.service');
 
 const router = Router();
@@ -24,7 +24,8 @@ router.get(
     } catch (error) {
       next(error);
     }
-});
+  },
+);
 
 router.get(
   '/:id',

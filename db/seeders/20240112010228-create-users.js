@@ -1,6 +1,6 @@
 'use strict';
 const { faker } = require('@faker-js/faker');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 const { USER_TABLE } = require('../models/user.model');
 
 /** @type {import('sequelize-cli').Migration} */

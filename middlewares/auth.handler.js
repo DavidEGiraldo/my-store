@@ -13,37 +13,39 @@ function checkApiKey(req, res, next) {
 
 function checkRoles(...roles) {
   return (req, res, next) => {
-    const { role } = req.user
+    const { role } = req.user;
     if (roles.includes(role)) {
-      next()
+      next();
     } else {
-      next(boom.forbidden('Admin permissions required'))
+      next(boom.forbidden('Admin permissions required'));
     }
-  }
+  };
 }
 
 function checkOwner(model) {
   return async (req, res, next) => {
     try {
-      const { user } = req
-      const { id } = req.params
+      const { user } = req;
+      const { id } = req.params;
       const resource = await models[model].findByPk(id, {
         include: [
           {
             association: 'customer',
-            include: ['user']
-          }
+            include: ['user'],
+          },
         ],
-      })
+      });
       if (resource.customer.user.id === user.sub || user.role === 'admin') {
-        next()
+        next();
       } else {
-        next(boom.forbidden(`You don't have permissions to edit this resource`))
+        next(
+          boom.forbidden(`You don't have permissions to edit this resource`),
+        );
       }
     } catch (error) {
-      next(error)
+      next(error);
     }
-  }
+  };
 }
 
 module.exports = { checkApiKey, checkRoles, checkOwner };

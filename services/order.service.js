@@ -7,7 +7,7 @@ class OrderService {
   constructor() {}
 
   async create(data) {
-    const newOrder = await models.Order.create({customerId: data});
+    const newOrder = await models.Order.create({ customerId: data });
     return newOrder;
   }
 
@@ -21,28 +21,28 @@ class OrderService {
       include: 'customer',
     });
     orders.forEach((order) => {
-      delete order.dataValues.items
-    })
-    return orders
+      delete order.dataValues.items;
+    });
+    return orders;
   }
 
   async findByUser(userId) {
     const orders = await models.Order.findAll({
       where: {
-        '$customer.user.id$': userId
+        '$customer.user.id$': userId,
       },
       include: [
         {
           association: 'customer',
-          include: ['user']
+          include: ['user'],
         },
-        'items'
+        'items',
       ],
-    })
+    });
     orders.forEach((order) => {
-      delete order.dataValues.items
-    })
-    return orders
+      delete order.dataValues.items;
+    });
+    return orders;
   }
 
   async findOne(id) {
