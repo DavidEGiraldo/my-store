@@ -7,7 +7,7 @@ class OrderService {
   constructor() {}
 
   async create(data) {
-    const newOrder = await models.Order.create(data);
+    const newOrder = await models.Order.create({customerId: data});
     return newOrder;
   }
 
@@ -19,7 +19,6 @@ class OrderService {
   async find() {
     const orders = await models.Order.findAll({
       include: 'customer',
-      attributes: { exclude: ['total'] },
     });
     orders.forEach((order) => {
       delete order.dataValues.items

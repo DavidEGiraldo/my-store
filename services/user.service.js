@@ -34,7 +34,12 @@ class UserService {
 
   async update(id, changes) {
     const user = await this.findOne(id);
-    const updatedUser = await user.update(changes);
+    await user.update(changes);
+    if (changes.customer) {
+      const customer = await user.getCustomer();
+      await customer.update(changes.customer);
+    }
+    const updatedUser = await this.findOne(id);
     return updatedUser;
   }
 
