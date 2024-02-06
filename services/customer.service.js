@@ -7,6 +7,8 @@ class CustomerService {
 
   async create(data) {
     const newCustomer = await models.Customer.create(data, { include: 'user' });
+    delete newCustomer.user.dataValues.password;
+    delete newCustomer.user.dataValues.recoveryToken;
     return newCustomer;
   }
 

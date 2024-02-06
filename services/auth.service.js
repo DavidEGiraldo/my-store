@@ -27,7 +27,7 @@ class AuthService {
       sub: user.id,
       role: user.role,
     };
-    const token = jwt.sign(payload, config.jwtRecoverySecret);
+    const token = jwt.sign(payload, config.jwtSecret);
     return {
       user,
       token,
