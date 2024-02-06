@@ -8,6 +8,8 @@ My-Store es una RESTful API para gestionar productos, categorías, órdenes, usu
 - Middleware de manejo de errores con Boom.
 - Middleware de validación de datos con Joi.
 - Generación de datos de prueba con Faker.
+- Autenticación y autorización de usuarios con JWT y Passport.
+- Servicio de envío de correo electrónico para recuperación de contraseña con Nodemailer.
 - Servicios para persistencia de datos en PostgreSQL a través de Sequelize.
 - Base de datos y cliente gráfico preconfigurados en contenedores de Docker.
 - Despliegue en línea: Visita la [demostración](https://my-store-hmxh.onrender.com) en Render.
@@ -27,6 +29,9 @@ Las contribuciones son bienvenidas y apreciadas. Si encuentras errores, tienes i
 - [Documentación de Boom](https://hapi.dev/module/boom/)
 - [Documentación de Joi](https://joi.dev/api/?v=17.9.1)
 - [Documentación de Faker](https://fakerjs.dev/guide/)
+- [Documentación de Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [Documentación de Passport](https://www.passportjs.org/docs/)
+- [Documentación de Nodemailer](https://nodemailer.com/)
   
 ## Créditos
 
@@ -100,6 +105,7 @@ To more info see the [swagger docs](https://github.com/DavidEGiraldo/my-store)
 | `/categories` | Acces to categories schema|
 | `/customers`  | Acces to customers schema |
 | `/orders`     | Acces to orders schema    |
+| `/auth`       | Acces to auth service     |
 
 
 ## Environment Variables
@@ -110,6 +116,19 @@ You have a template in `.env.example` file
 
 ```
 PORT=
+
+API_KEY=''
+JWT_SECRET=''
+JWT_RECOVERY_SECRET=''
+
+MAILER_USER=''
+MAILER_PASS=''
+MAILER_HOST=''
+
+DB_NAME=''
+DB_USER=''
+DB_PASSWORD=''
+DB_PORT=''
 DB_URL=''
 
 PG_EMAIL=''
