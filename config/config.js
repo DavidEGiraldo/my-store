@@ -6,6 +6,11 @@ const config = {
   dbUrl: process.env.DB_URL,
   apiKey: process.env.API_KEY,
   jwtSecret: process.env.JWT_SECRET,
+  jwtRecoverySecret: process.env.JWT_RECOVERY_SECRET,
+  mailerUser: process.env.MAILER_USER,
+  mailerPass: process.env.MAILER_PASS,
+  mailerHost: process.env.MAILER_HOST,
+  urlFront: process.env.URL_FRONT,
 };
 
 module.exports = { config };

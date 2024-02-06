@@ -9,6 +9,10 @@ const name = Joi.string().min(3).max(30);
 const lastName = Joi.string();
 const phone = Joi.string();
 
+const token = Joi.string().regex(
+  /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_.+/=]+$/,
+);
+
 const createUserSchema = Joi.object({
   email: email.required(),
   password: password.required(),
@@ -36,9 +40,20 @@ const updateProfileSchema = Joi.object({
   }),
 });
 
+const sendEmailSchema = Joi.object({
+  email: email.required(),
+});
+
+const changePasswordSchema = Joi.object({
+  newPassword: password.required(),
+  token: token.required(),
+});
+
 module.exports = {
   createUserSchema,
   updateUserSchema,
   getUserSchema,
   updateProfileSchema,
+  sendEmailSchema,
+  changePasswordSchema,
 };

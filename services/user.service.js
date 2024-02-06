@@ -20,7 +20,21 @@ class UserService {
   async findByEmail(email) {
     const user = await models.User.scope('withPassword').findOne({
       where: { email },
+      include: 'customer',
     });
+    if (!user) {
+      throw boom.unauthorized();
+    }
+    return user;
+  }
+
+  async findById(id) {
+    const user = await models.User.scope('withPassword').findByPk(id, {
+      include: 'customer',
+    });
+    if (!user) {
+      throw boom.unauthorized();
+    }
     return user;
   }
 
